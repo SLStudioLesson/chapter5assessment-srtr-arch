@@ -97,6 +97,19 @@ public class TaskLogic {
      */
     public void changeStatus(int code, int status,
     User loginUser) throws AppException {
+        Task task = taskDataAccess.findByCode(code);
+        if(task==null){
+            throw new AppException("存在するタスクコードを入力してください");
+        
+        }
+        if(!(task.getStatus()+1==status)){
+            throw new AppException("ステータスは、前のステータスより1つ先のもののみを選択してください");
+        }
+        task.setStatus(status);
+        taskDataAccess.update(task);
+        Log log = new Log(code,loginUser.getCode(),status,LocalDate.now());
+        logDataAccess.save(log);
+        // Task_Code,Change_User_Code,Status,Change_Date
     }
 
     /**

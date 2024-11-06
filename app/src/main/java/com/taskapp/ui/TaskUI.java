@@ -163,6 +163,7 @@ public class TaskUI {
         try {
             System.out.println("以下1~2から好きな選択肢を選んでください。");
             System.out.println("1. タスクのステータス変更, 2. メインメニューに戻る");
+            System.out.print("選択肢：");
             String selectNum = reader.readLine();
             switch (selectNum) {
                 case "1":
@@ -187,7 +188,7 @@ public class TaskUI {
         boolean flg = true;
         while (flg) {
             try {
-                System.out.println("ステータスを変更するタスクコードを入力してください：");
+                System.out.print("ステータスを変更するタスクコードを入力してください：");
                 String code = reader.readLine();
                 if (!isNumeric(code)) {
                     System.out.println("コードは半角の数字で入力してください");
@@ -210,6 +211,8 @@ public class TaskUI {
                     continue;
                 }
                 taskLogic.changeStatus(Integer.parseInt(code), Snum, loginUser);
+                System.out.println("ステータスの変更が完了しました。");
+                flg=false;
             }catch(AppException e){
                 System.out.println(e.getMessage());
                 System.out.println();
